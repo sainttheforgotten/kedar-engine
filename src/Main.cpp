@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "Utils/File.hpp"
+
 const unsigned int WINDOW_WIDTH  = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 const char* WINDOW_TITLE         = "Kedar Engine";
@@ -42,6 +44,9 @@ int main()
   GLclampf blue  = 0.3f;
   GLclampf alpha = 1.0f;
   glClearColor(red, green, blue, alpha);
+
+  const char* vertexShaderSource = kdr::file::getContents("src/Shaders/default.vert");
+  const char* fragmentShaderSource = kdr::file::getContents("src/Shaders/default.frag");
 
   while (!glfwWindowShouldClose(window))
   {
