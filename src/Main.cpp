@@ -4,6 +4,7 @@
 
 #include "Headers/Shader.hpp"
 #include "Headers/VBO.hpp"
+#include "Headers/EBO.hpp"
 #include "Utils/File.hpp"
 
 const unsigned int WINDOW_WIDTH  = 800;
@@ -65,26 +66,22 @@ int main()
 
   GLuint VAO;
   kdr::VBO VBO1(vertices, sizeof(vertices));
-  GLuint EBO;
+  kdr::EBO EBO1(indices, sizeof(indices));
 
   glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &EBO);
 
-  VBO1.Bind();
   glBindVertexArray(VAO);
+  VBO1.Bind();
+  EBO1.Bind();
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
   glEnableVertexAttribArray(1);
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
   glBindVertexArray(0);
   VBO1.Unbind();
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+  EBO1.Unbind();
 
   while (!glfwWindowShouldClose(window))
   {
@@ -98,7 +95,7 @@ int main()
 
   glDeleteVertexArrays(1, &VAO);
   VBO1.Delete();
-  glDeleteBuffers(1, &EBO);
+  EBO1.Delete();
   defaultShader.Delete();
   glfwDestroyWindow(window);
   glfwTerminate();
