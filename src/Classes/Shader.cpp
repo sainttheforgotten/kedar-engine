@@ -55,6 +55,11 @@ kdr::Shader::Shader(const char* vertexPath, const char* fragmentPath)
   glDeleteShader(fragmentShader);
 }
 
+const GLuint kdr::Shader::getID() const
+{
+  return this->ID;
+}
+
 void kdr::Shader::Use()
 {
   glUseProgram(this->ID);
