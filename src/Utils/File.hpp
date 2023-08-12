@@ -4,8 +4,10 @@
 #include <fstream>
 #include <iostream>
 
-namespace kdr {
-  namespace file {
+namespace kdr 
+{
+  namespace file
+  {
     /**
      * Reads the contents of a file and returns them as a character array.
      *
